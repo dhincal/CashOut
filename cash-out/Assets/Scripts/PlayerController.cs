@@ -19,15 +19,15 @@ public class PlayerController : MonoBehaviour
         verticalInput = Input.GetAxis("Vertical");
         horizontalInput = Input.GetAxis("Horizontal");
 
-        transform.Translate(Vector3.forward * speed * Time.deltaTime * verticalInput);
-        transform.Translate(Vector3.right * speed * Time.deltaTime * horizontalInput);
+        // Move the player based on input disregarding players rotation
+        transform.Translate(Vector3.forward * speed * Time.deltaTime * verticalInput, Space.World);
+        transform.Translate(Vector3.right * speed * Time.deltaTime * horizontalInput, Space.World);
 
         var mousePosition = Input.mousePosition; // Get the current mouse position
         var wantedPosition = Camera.main.ScreenToWorldPoint(
             new Vector3(mousePosition.x, mousePosition.y, Camera.main.transform.position.y)
         ); // Convert screen position to world position
         transform.LookAt(wantedPosition); // Make the player look at the mouse position
-
         var rotation = transform.rotation;
         rotation.x = 0; // Reset the x rotation to 0
         rotation.z = 0; // Reset the z rotation to 0
