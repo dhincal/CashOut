@@ -4,6 +4,9 @@ public class PlayerController : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
+
+    public GameObject bullet; // Prefab of the bullet to be instantiated
+
     private float horizontalInput;
     private float verticalInput;
     private float speed = 10.0f;
@@ -32,5 +35,18 @@ public class PlayerController : MonoBehaviour
         rotation.x = 0; // Reset the x rotation to 0
         rotation.z = 0; // Reset the z rotation to 0
         transform.rotation = rotation;
+
+        if (Input.GetMouseButtonDown(0)) // Check if the left mouse button is pressed
+        {
+            Shoot(); // Call the Shoot method to shoot a bullet
+        }
+    }
+
+    void Shoot()
+    {
+        // Create a bullet and set its position and rotation
+        Instantiate(bullet, transform.position + transform.forward * 2, transform.rotation);
+        bullet.transform.position = transform.position + transform.forward * 2; // Set the bullet's position to be in front of the player
+        bullet.transform.rotation = transform.rotation; // Set the bullet's rotation to match the player's rotation
     }
 }
