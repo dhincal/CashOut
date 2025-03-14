@@ -12,4 +12,9 @@ public class BulletMoveForward : MonoBehaviour
     {
         transform.Translate(Vector3.forward * Time.deltaTime * speed); // Move the bullet forward at a speed of 10 units per second
     }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        Destroy(gameObject); // Destroy the bullet when it collides with any object
+    }
 }
