@@ -18,6 +18,10 @@ public class BulletMoveForward : MonoBehaviour
     {
         Debug.Log("Collision detected with: " + collision.gameObject.name); // Log the name of the object the bullet collides with
         Destroy(gameObject); // Destroy the bullet when it collides with any object
-        Destroy(collision.gameObject); // Destroy the object it collides with
+        if (collision.gameObject.CompareTag("Enemy")) // Check if the collided object has the tag "Enemy"
+        {
+            Destroy(collision.gameObject); // Destroy the object it collides with
+            Debug.Log("Hit an enemy!"); // Log that an enemy was hit
+        }
     }
 }
