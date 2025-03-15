@@ -13,7 +13,10 @@ public class FieldOfView : MonoBehaviour
     public LayerMask obstacleMask; // Layer mask to identify obstacles
     public bool seeSuspicous = false; // Flag to indicate if the enemy can see suspicious objects
 
-    void Start() { }
+    void Start()
+    {
+        StartCoroutine(FOVRoutine()); // Start the field of view check routine
+    }
 
     // Update is called once per frame
     void Update() { }
