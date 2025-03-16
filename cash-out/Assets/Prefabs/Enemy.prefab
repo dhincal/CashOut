@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 628570153657888289}
   - component: {fileID: 3251547454483957459}
   - component: {fileID: 8333569546750615786}
-  - component: {fileID: 2330241850212964034}
+  - component: {fileID: 7941708355172444768}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -137,7 +137,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 2, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2330241850212964034
+--- !u!114 &7941708355172444768
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -146,13 +146,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 2652905632054523385}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0038c16c34866b4f9e25c9c0dc0f7e6, type: 3}
+  m_Script: {fileID: 11500000, guid: 69b7fe222514e9b42b06fda34ecd0fa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Graph: {fileID: 0}
-  m_BlackboardVariableOverridesList: []
-  m_IsInitialised: 0
-  m_IsStarted: 0
-  references:
-    version: 2
-    RefIds: []
+  player: {fileID: 0}
+  viewDistance: 5
+  viewAngle: 115
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 128
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 64
+  seeSuspicous: 0
