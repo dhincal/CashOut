@@ -22,9 +22,7 @@ public partial class MoveToPlayerPositionAction : Action
         if (Player.Value != null)
         {
             // Move the NPC to the player's position
-            GameObject.transform.position = Player.Value.transform.position;
-            Debug.Log("Moved to player position: " + Player.Value.transform.position);
-            return Status.Success;
+            return Status.Running;
         }
         else
         {
@@ -35,7 +33,14 @@ public partial class MoveToPlayerPositionAction : Action
 
     protected override Status OnUpdate()
     {
-        return Status.Success;
+        // Chase Player with a certain speed
+        float speed = 5f; // Adjust the speed as needed
+        Vector3 direction = (
+            Player.Value.transform.position - GameObject.transform.position
+        ).normalized;
+        GameObject.transform.position += direction * speed * Time.deltaTime;
+        Debug.Log("Chasing player: " + Player.Value.transform.position);
+        return Status.Running;
     }
 
     protected override void OnEnd() { }
