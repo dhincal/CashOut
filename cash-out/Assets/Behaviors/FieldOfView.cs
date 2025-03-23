@@ -13,6 +13,9 @@ public class FieldOfView : MonoBehaviour
     public LayerMask obstacleMask; // Layer mask to identify obstacles
     public bool seeSuspicous = false; // Flag to indicate if the enemy can see suspicious objects
 
+    public Vector3 dirToTarget;
+    public float distToTarget; // Distance to the target (player)
+
     void Start()
     {
         StartCoroutine(FOVRoutine()); // Start the field of view check routine
@@ -42,10 +45,10 @@ public class FieldOfView : MonoBehaviour
         if (rangeChecks.Length > 0) // If there are colliders within the view distance
         {
             Transform target = rangeChecks[0].transform; // Get the first collider's transform
-            Vector3 dirToTarget = (target.position - transform.position).normalized; // Calculate direction to the target
+            dirToTarget = (target.position - transform.position).normalized; // Calculate direction to the target
             if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2) // Check if the target is within the field of view angle
             {
-                float distToTarget = Vector3.Distance(transform.position, target.position); // Calculate distance to the target
+                distToTarget = Vector3.Distance(transform.position, target.position); // Calculate distance to the target
                 if (!Physics.Raycast(transform.position, dirToTarget, distToTarget, obstacleMask)) // Check for obstacles between the enemy and the target
                 {
                     seeSuspicous = true; // Set the flag to true if the target is visible

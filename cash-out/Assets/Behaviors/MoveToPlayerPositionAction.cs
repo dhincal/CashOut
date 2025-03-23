@@ -16,6 +16,8 @@ public partial class MoveToPlayerPositionAction : Action
     [SerializeReference]
     public BlackboardVariable<GameObject> Player;
 
+    public float speed = 5f; // Adjust the speed as needed
+
     protected override Status OnStart()
     {
         Debug.Log("Moving to player position...");
@@ -34,7 +36,6 @@ public partial class MoveToPlayerPositionAction : Action
     protected override Status OnUpdate()
     {
         // Chase Player with a certain speed
-        float speed = 5f; // Adjust the speed as needed
         Vector3 direction = (
             Player.Value.transform.position - GameObject.transform.position
         ).normalized;
