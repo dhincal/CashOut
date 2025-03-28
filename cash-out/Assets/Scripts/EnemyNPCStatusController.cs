@@ -22,17 +22,4 @@ public class EnemyNPCStatusController : MonoBehaviour
             }
         }
     }
-
-    // void OnCollisionEnter(Collision collision)
-    // {
-    //     if (collision.gameObject.CompareTag("Bullet"))
-    //     {
-    //         // Logic for when the enemy collides with the player
-    //         health -= 33; // Decrease health by 33 on collision with a bullet
-    //         if (health <= 0)
-    //         {
-    //             Destroy(gameObject); // Destroy the enemy NPC if health is 0 or less
-    //         }
-    //     }
-    // }
 }

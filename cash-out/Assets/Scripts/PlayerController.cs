@@ -36,6 +36,11 @@ public class PlayerController : MonoBehaviour
         rotation.z = 0; // Reset the z rotation to 0
         transform.rotation = rotation;
 
+        if (Input.GetKeyDown(KeyCode.R)) // Check if the R key is pressed
+        {
+            gun.GetComponent<GunController>().Reload(); // Call the Reload method from the GunController script
+        }
+
         if (Input.GetMouseButtonDown(0)) // Check if the left mouse button is pressed
         {
             gun.GetComponent<GunController>().Shoot(); // Call the Shoot method from the GunController script
