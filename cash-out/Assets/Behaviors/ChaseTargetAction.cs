@@ -7,7 +7,7 @@ using Action = Unity.Behavior.Action;
 [Serializable, GeneratePropertyBag]
 [NodeDescription(
     name: "ChaseTarget",
-    story: "Chase The [Target]",
+    story: "Chase The [Target] Until [Suspicious] is 0",
     category: "Action",
     id: "67e7daa96e8399dc37a476835c78b491"
 )]
@@ -15,6 +15,9 @@ public partial class ChaseTargetAction : Action
 {
     [SerializeReference]
     public BlackboardVariable<GameObject> Target;
+
+    [SerializeReference]
+    public BlackboardVariable<SusEnum> Suspicious;
 
     protected override Status OnStart()
     {
@@ -28,16 +31,17 @@ public partial class ChaseTargetAction : Action
             return Status.Failure;
         }
 
-        Vector3 direction = (
-            Target.Value.transform.position - GameObject.transform.position
-        ).normalized;
-        GameObject.transform.position += direction * 5f * Time.deltaTime;
-
         GameObject.transform.LookAt(Target.Value.transform);
+        GameObject.transform.position += GameObject.transform.forward * 5f * Time.deltaTime;
 
         if (Vector3.Distance(GameObject.transform.position, Target.Value.transform.position) < 0.1f)
         {
             return Status.Success;
+        }
+
+        if (Suspicious.Value == SusEnum.NoSus)
+        {
+            return Status.Failure;
         }
 
         return Status.Running;

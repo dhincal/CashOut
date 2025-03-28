@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Unity.Behavior;
 using Unity.Properties;
 using UnityEngine;
@@ -27,10 +28,10 @@ public partial class UpdateSusEnumAction : Action
         {
             case float n when n >= 90:
                 EnumState.Value = SusEnum.Figured;
-                break;
+                return Status.Success;
             case float n when n >= 75:
                 EnumState.Value = SusEnum.MedSus;
-                return Status.Success;
+                break;
             default:
                 EnumState.Value = SusEnum.NoSus;
                 break;

@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Unity.Behavior;
 using Unity.Properties;
 using UnityEngine;
@@ -51,6 +52,11 @@ public partial class MoveToPlayerPositionAction : Action
 
         if (Vector3.Distance(GameObject.transform.position, lastSeenPos) < 0.1f)
         {
+            Debug.Log("Reached player position!");
+            // Make npc wait for a few seconds before continuing
+            GameObject.transform.position = lastSeenPos;
+
+            // Return success if the NPC has reached the target position
             return Status.Success;
         }
         return Status.Running;
