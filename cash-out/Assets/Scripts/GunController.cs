@@ -15,15 +15,6 @@ public class GunController : MonoBehaviour
     private Vector3 bulletSpread = new Vector3(0.1f, 0.1f, 0.1f);
 
     [SerializeField]
-    private ParticleSystem shootingSystem;
-
-    [SerializeField]
-    private ParticleSystem impactSystem;
-
-    [SerializeField]
-    private TrailRenderer bulletTrail;
-
-    [SerializeField]
     private float fireRate = 0.5f;
 
     private float lastShotTime;
@@ -51,10 +42,6 @@ public class GunController : MonoBehaviour
                     ForceMode.Impulse
                 );
             }
-            shootingSystem.Play();
-            bulletTrail.Clear();
-            bulletTrail.AddPosition(bulletSpawnPoint.position);
-            bulletTrail.AddPosition(bullet.transform.position);
         }
     }
 }
