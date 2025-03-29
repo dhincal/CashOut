@@ -307,6 +307,73 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1001 &78836667590652642
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3337045928891181751}
+    m_Modifications:
+    - target: {fileID: 2410442530722442333, guid: c23892f124e175d4688c25ce01a2b353, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.607485
+      objectReference: {fileID: 0}
+    - target: {fileID: 2410442530722442333, guid: c23892f124e175d4688c25ce01a2b353, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.3858957
+      objectReference: {fileID: 0}
+    - target: {fileID: 2410442530722442333, guid: c23892f124e175d4688c25ce01a2b353, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.0857257
+      objectReference: {fileID: 0}
+    - target: {fileID: 2410442530722442333, guid: c23892f124e175d4688c25ce01a2b353, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2410442530722442333, guid: c23892f124e175d4688c25ce01a2b353, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2410442530722442333, guid: c23892f124e175d4688c25ce01a2b353, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2410442530722442333, guid: c23892f124e175d4688c25ce01a2b353, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2410442530722442333, guid: c23892f124e175d4688c25ce01a2b353, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2410442530722442333, guid: c23892f124e175d4688c25ce01a2b353, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2410442530722442333, guid: c23892f124e175d4688c25ce01a2b353, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3172236517066147032, guid: c23892f124e175d4688c25ce01a2b353, type: 3}
+      propertyPath: m_Name
+      value: MuzzleFlashParticle
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c23892f124e175d4688c25ce01a2b353, type: 3}
+--- !u!4 &2336111730636119743 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2410442530722442333, guid: c23892f124e175d4688c25ce01a2b353, type: 3}
+  m_PrefabInstance: {fileID: 78836667590652642}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &8562605686905239310 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8632390074761070060, guid: c23892f124e175d4688c25ce01a2b353, type: 3}
+  m_PrefabInstance: {fileID: 78836667590652642}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3009856915615616348
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -377,6 +444,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: e27fa5b5c8eaf2041a7378b530b5f924, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7344492041309585265}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: e27fa5b5c8eaf2041a7378b530b5f924, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2336111730636119743}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e27fa5b5c8eaf2041a7378b530b5f924, type: 3}
       insertIndex: -1
@@ -410,6 +480,7 @@ MonoBehaviour:
   reloadTime: 1.5
   shootingSound: {fileID: 8300000, guid: 66da697eb23afc34480036e208019645, type: 3}
   reloadSound: {fileID: 8300000, guid: dc8052a169c4f4046aa6078bc8a36014, type: 3}
+  muzzleFlash: {fileID: 8562605686905239310}
 --- !u!4 &3337045928891181751 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e27fa5b5c8eaf2041a7378b530b5f924, type: 3}

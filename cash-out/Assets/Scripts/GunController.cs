@@ -36,6 +36,9 @@ public class GunController : MonoBehaviour
     [SerializeField]
     private AudioClip reloadSound; // Assuming you have a script for handling sound
 
+    [SerializeField]
+    private ParticleSystem muzzleFlash; // Assuming you have a muzzle flash effect
+
     private float lastShotTime;
 
     public async void Reload()
@@ -66,16 +69,21 @@ public class GunController : MonoBehaviour
     {
         if (lastShotTime + fireRate < Time.time && ammoInMag > 0)
         {
-            ammoInMag--;
             if (ammoInMag <= 0)
             {
                 Reload();
             }
             // Play the shooting sound here if you have one
+            ammoInMag--;
 
             if (shootingSound != null)
             {
                 AudioSource.PlayClipAtPoint(shootingSound, transform.position);
+            }
+            // Play the muzzle flash effect if you have one
+            if (muzzleFlash != null)
+            {
+                muzzleFlash.Play();
             }
             lastShotTime = Time.time;
             GameObject bullet = Instantiate(
