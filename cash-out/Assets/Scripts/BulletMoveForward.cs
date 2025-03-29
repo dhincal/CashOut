@@ -1,12 +1,16 @@
 using System;
 using UnityEditor.Callbacks;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class BulletMoveForward : MonoBehaviour
 {
     public float speed = 10f; // Speed of the bullet
 
     private Rigidbody rb; // Reference to the Rigidbody component
+
+    [SerializeField]
+    private ParticleSystem bulletImpactEffect; // Reference to the bullet impact effect (optional)
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -27,7 +31,7 @@ public class BulletMoveForward : MonoBehaviour
         Destroy(gameObject, 2f);
     }
 
-    void OnTriggerEnter(Collider collision)
+    void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Enemy")) // Check if the collided object has the tag "Enemy"
         {
@@ -35,6 +39,17 @@ public class BulletMoveForward : MonoBehaviour
             Destroy(gameObject); // Destroy the bullet when it collides with any object
 
             Debug.Log("Hit an enemy!"); // Log that an enemy was hit
+        }
+        else
+        {
+            ContactPoint contactPoint = collision.contacts[0]; // Access the first contact point
+            if (bulletImpactEffect != null)
+            {
+                bulletImpactEffect.Play(); // Play the bullet impact effect if it's assigned
+                bulletImpactEffect.transform.position = contactPoint.point; // Set the position of the bullet impact effect to the collision point
+            }
+            Debug.Log("Collision at point: " + contactPoint.point); // Log the collision point
+            Destroy(gameObject); // Destroy the bullet when it collides with any object
         }
     }
 }

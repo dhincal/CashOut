@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7089570365783995610}
   - component: {fileID: 5680254237332630072}
   - component: {fileID: -4539499695505492230}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Bullet
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -125,6 +125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 75
+  bulletImpactEffect: {fileID: 3272360076218935210, guid: fbb5b1d0ad1bf37478ced11eae4c606e, type: 3}
 --- !u!54 &5680254237332630072
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -133,7 +134,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1719973078715572430}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 0.1
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -279,7 +280,7 @@ GameObject:
   - component: {fileID: 2449500603629761818}
   - component: {fileID: 1167216589011353233}
   - component: {fileID: 6964016320944980697}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
