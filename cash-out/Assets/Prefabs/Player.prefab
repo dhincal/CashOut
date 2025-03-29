@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1719218588578582821
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7344492041309585265}
+  m_Layer: 0
+  m_Name: GunPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7344492041309585265
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1719218588578582821}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -1.5, y: 1.44, z: 0.02}
+  m_LocalScale: {x: 7.143792, y: 7.143794, z: 7.143792}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3337045928891181751}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6068159608387953415
 GameObject:
   m_ObjectHideFlags: 0
@@ -134,7 +165,8 @@ GameObject:
   - component: {fileID: 1006942241499607408}
   - component: {fileID: 3872081218476727965}
   - component: {fileID: -2697887517592258753}
-  m_Layer: 0
+  - component: {fileID: 6027670349181044129}
+  m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -246,8 +278,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 864987945bb794141b7d355e2261f23d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gun: {fileID: 0}
+  gun: {fileID: 2667328601439383565}
   mouseX: 0
+--- !u!54 &6027670349181044129
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7055719673664112781}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &3009856915615616348
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -314,9 +373,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: e27fa5b5c8eaf2041a7378b530b5f924, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7344492041309585265}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e27fa5b5c8eaf2041a7378b530b5f924, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4721319750652367734}
   m_SourcePrefab: {fileID: 100100000, guid: e27fa5b5c8eaf2041a7378b530b5f924, type: 3}
+--- !u!1 &2667328601439383565 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e27fa5b5c8eaf2041a7378b530b5f924, type: 3}
+  m_PrefabInstance: {fileID: 3009856915615616348}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4721319750652367734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2667328601439383565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f1b17ef890f35c4f9f8bddacff50b48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 1719973078715572430, guid: 7391befe0d8c53d429404b269f9d58ca, type: 3}
+  bulletSpawnPoint: {fileID: 7344492041309585265}
+  bulletSpreadEnabled: 1
+  bulletSpread: {x: 0.1, y: 0.1, z: 0.1}
+  magSize: 15
+  ammoInMag: 15
+  currentAmmo: 40
+  fireRate: 0.5
+  reloadTime: 1.5
+  shootingSound: {fileID: 8300000, guid: 66da697eb23afc34480036e208019645, type: 3}
+  reloadSound: {fileID: 8300000, guid: dc8052a169c4f4046aa6078bc8a36014, type: 3}
 --- !u!4 &3337045928891181751 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e27fa5b5c8eaf2041a7378b530b5f924, type: 3}
