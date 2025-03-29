@@ -5,8 +5,8 @@ public class PlayerController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
 
-    public GameObject bullet; // Prefab of the bullet to be instantiated
-
+    [SerializeField]
+    private GameObject gun;
     private float horizontalInput;
     private float verticalInput;
     private float speed = 10.0f;
@@ -36,17 +36,14 @@ public class PlayerController : MonoBehaviour
         rotation.z = 0; // Reset the z rotation to 0
         transform.rotation = rotation;
 
+        if (Input.GetKeyDown(KeyCode.R)) // Check if the R key is pressed
+        {
+            gun.GetComponent<GunController>().Reload(); // Call the Reload method from the GunController script
+        }
+
         if (Input.GetMouseButtonDown(0)) // Check if the left mouse button is pressed
         {
-            Shoot(); // Call the Shoot method to shoot a bullet
+            gun.GetComponent<GunController>().Shoot(); // Call the Shoot method from the GunController script
         }
-    }
-
-    void Shoot()
-    {
-        // Create a bullet and set its position and rotation
-        Instantiate(bullet, transform.position + transform.forward * 2, transform.rotation);
-        bullet.transform.position = transform.position + transform.forward * 2; // Set the bullet's position to be in front of the player
-        bullet.transform.rotation = transform.rotation; // Set the bullet's rotation to match the player's rotation
     }
 }
