@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private GameObject gun;
+
+    private GameObject flashlight; // Variable to store the flashlight object
     private float horizontalInput;
     private float verticalInput;
     private float speed = 10.0f;
@@ -14,7 +16,29 @@ public class PlayerController : MonoBehaviour
     private Vector2 mousePosition; // Variable to store mouse position
     public float mouseX; // Variable to store mouse X movement
 
-    void Start() { }
+    void Start()
+    {
+        // Find the flashlight object in the scene by its name
+        flashlight = GameObject.Find("Flashlight");
+
+        if (flashlight != null)
+        {
+            // If the flashlight is found, enable it
+            flashlight.SetActive(true);
+        }
+        else
+        {
+            Debug.LogWarning("Flashlight not found in the scene!");
+        }
+
+        // Ensure the gun is assigned and has a GunController component
+        if (gun == null || gun.GetComponent<GunController>() == null)
+        {
+            Debug.LogError(
+                "Gun object is not assigned or does not have a GunController component!"
+            );
+        }
+    }
 
     // Update is called once per frame
     void Update()
@@ -44,6 +68,19 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButtonDown(0)) // Check if the left mouse button is pressed
         {
             gun.GetComponent<GunController>().Shoot(); // Call the Shoot method from the GunController script
+        }
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            // Toggle the flashlight on and off when the F key is pressed
+            if (flashlight != null)
+            {
+                flashlight.SetActive(!flashlight.activeSelf); // Toggle the active state of the flashlight
+            }
+            else
+            {
+                Debug.LogWarning("Flashlight not found in the scene!");
+            }
         }
     }
 }
