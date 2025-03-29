@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class GunController : MonoBehaviour
@@ -31,10 +32,12 @@ public class GunController : MonoBehaviour
 
     private float lastShotTime;
 
-    public void Reload()
+    public async void Reload()
     {
         if (currentAmmo > 0)
         {
+            await Task.Delay((int)(reloadTime * 1000));
+            ammoInMag = 0;
             int ammoToReload = magSize - ammoInMag;
             if (currentAmmo >= ammoToReload)
             {

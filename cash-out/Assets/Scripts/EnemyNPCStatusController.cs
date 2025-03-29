@@ -10,16 +10,17 @@ public class EnemyNPCStatusController : MonoBehaviour
     // Update is called once per frame
     void Update() { }
 
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Bullet"))
-        {
-            // Logic for when the enemy collides with the player
-            health -= 33; // Decrease health by 33 on collision with a bullet
-            if (health <= 0)
-            {
-                Destroy(gameObject); // Destroy the enemy NPC if health is 0 or less
-            }
-        }
-    }
+    // void OnTriggerEnter(Collider other)
+    // {
+    //     if (other.CompareTag("Bullet"))
+    //     {
+    //         Destroy(other.gameObject); // Destroy the bullet on collision
+    //         // Logic for when the enemy collides with the player
+    //         health -= 33; // Decrease health by 33 on collision with a bullet
+    //         if (health <= 0)
+    //         {
+    //             Destroy(gameObject); // Destroy the enemy NPC if health is 0 or less
+    //         }
+    //     }
+    // }
 }
