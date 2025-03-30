@@ -20,21 +20,43 @@ public partial class UpdateSusEnumAction : Action
     [SerializeReference]
     public BlackboardVariable<SuspicionController> SusController;
 
+    private bool alreadySus = false;
+
     protected override Status OnUpdate()
     {
         float susLevel = SusController.Value.suspicionLevel;
-
-        switch (susLevel)
+        if (!alreadySus)
         {
-            case float n when n >= 90:
-                EnumState.Value = SusEnum.Figured;
-                return Status.Success;
-            case float n when n >= 75:
-                EnumState.Value = SusEnum.MedSus;
-                break;
-            default:
-                EnumState.Value = SusEnum.NoSus;
-                break;
+            switch (susLevel)
+            {
+                case float n when n >= 90:
+                    EnumState.Value = SusEnum.Figured;
+                    return Status.Success;
+                case float n when n >= 75:
+                    EnumState.Value = SusEnum.MedSus;
+                    alreadySus = true; // Mark as already in a suspicious state.
+                    break;
+                default:
+                    EnumState.Value = SusEnum.NoSus;
+                    break;
+            }
+        }
+        else
+        {
+            // If we are already in a suspicious state, we can check if we need to update it further.
+            switch (susLevel)
+            {
+                case float n when n >= 90:
+                    EnumState.Value = SusEnum.Figured;
+                    break;
+                case float n when n == 0:
+                    EnumState.Value = SusEnum.NoSus;
+                    alreadySus = false; // Reset the flag since we are no longer in a suspicious state.
+                    break;
+                default:
+                    // No change needed, we are already in the highest state.
+                    break;
+            }
         }
 
         return Status.Running;
