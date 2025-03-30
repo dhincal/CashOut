@@ -32,7 +32,7 @@ public partial class UpdateSusEnumAction : Action
                 case float n when n >= 90:
                     EnumState.Value = SusEnum.Figured;
                     return Status.Success;
-                case float n when n >= 75:
+                case float n when n >= 50:
                     EnumState.Value = SusEnum.MedSus;
                     alreadySus = true; // Mark as already in a suspicious state.
                     break;
@@ -48,7 +48,7 @@ public partial class UpdateSusEnumAction : Action
             {
                 case float n when n >= 90:
                     EnumState.Value = SusEnum.Figured;
-                    break;
+                    return Status.Success; // We have reached the highest state, no need to check further.
                 case float n when n == 0:
                     EnumState.Value = SusEnum.NoSus;
                     alreadySus = false; // Reset the flag since we are no longer in a suspicious state.
