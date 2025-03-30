@@ -30,12 +30,25 @@ public class GunController : MonoBehaviour
     [SerializeField]
     private float reloadTime = 1.5f;
 
+    [SerializeField]
+    private AudioClip shootingSound; // Assuming you have a script for handling sound
+
+    [SerializeField]
+    private AudioClip reloadSound; // Assuming you have a script for handling sound
+
+    [SerializeField]
+    private ParticleSystem muzzleFlash; // Assuming you have a muzzle flash effect
+
     private float lastShotTime;
 
     public async void Reload()
     {
         if (currentAmmo > 0)
         {
+            if (reloadSound != null)
+            {
+                AudioSource.PlayClipAtPoint(reloadSound, transform.position);
+            }
             await Task.Delay((int)(reloadTime * 1000));
             ammoInMag = 0;
             int ammoToReload = magSize - ammoInMag;
@@ -56,12 +69,22 @@ public class GunController : MonoBehaviour
     {
         if (lastShotTime + fireRate < Time.time && ammoInMag > 0)
         {
-            ammoInMag--;
             if (ammoInMag <= 0)
             {
                 Reload();
             }
+            // Play the shooting sound here if you have one
+            ammoInMag--;
 
+            if (shootingSound != null)
+            {
+                AudioSource.PlayClipAtPoint(shootingSound, transform.position);
+            }
+            // Play the muzzle flash effect if you have one
+            if (muzzleFlash != null)
+            {
+                muzzleFlash.Play();
+            }
             lastShotTime = Time.time;
             GameObject bullet = Instantiate(
                 bulletPrefab,
@@ -81,6 +104,7 @@ public class GunController : MonoBehaviour
                     ForceMode.Impulse
                 );
             }
+            bullet.GetComponent<BulletMoveForward>().shooter = gameObject; // Assign the shooter to the bullet
         }
     }
 }
