@@ -12,6 +12,9 @@ public class BulletMoveForward : MonoBehaviour
     [SerializeField]
     private ParticleSystem bulletImpactEffect; // Reference to the bullet impact effect (optional)
 
+    [SerializeField]
+    public GameObject shooter;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -43,11 +46,12 @@ public class BulletMoveForward : MonoBehaviour
         else
         {
             ContactPoint contactPoint = collision.contacts[0]; // Access the first contact point
-            if (bulletImpactEffect != null)
-            {
-                bulletImpactEffect.Play(); // Play the bullet impact effect if it's assigned
-                bulletImpactEffect.transform.position = contactPoint.point; // Set the position of the bullet impact effect to the collision point
-            }
+            Instantiate(
+                bulletImpactEffect,
+                contactPoint.point,
+                Quaternion.LookRotation(shooter.transform.position - contactPoint.point) // Calculate the rotation based on the direction from the impact point to the shooter);
+            ); // Instantiate the bullet impact effect at the collision point with the correct rotation
+            bulletImpactEffect.Play(); // Play the bullet impact effect if it's assigned
             Debug.Log("Collision at point: " + contactPoint.point); // Log the collision point
             Destroy(gameObject); // Destroy the bullet when it collides with any object
         }

@@ -104,6 +104,7 @@ public class GunController : MonoBehaviour
                     ForceMode.Impulse
                 );
             }
+            bullet.GetComponent<BulletMoveForward>().shooter = gameObject; // Assign the shooter to the bullet
         }
     }
 }
