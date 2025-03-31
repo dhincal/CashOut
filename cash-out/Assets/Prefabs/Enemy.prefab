@@ -121,7 +121,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 1
+  m_CollisionDetection: 2
 --- !u!65 &8333569546750615786
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -266,6 +266,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   player: {fileID: 7055719673664112781, guid: e5deff250db8b4a43b0a677ea6807380, type: 3}
+  gun: {fileID: 0}
 --- !u!114 &5708021165384608658
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -280,6 +281,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   player: {fileID: 0}
+  gun: {fileID: 0}
 --- !u!1 &8780114707671288486
 GameObject:
   m_ObjectHideFlags: 0

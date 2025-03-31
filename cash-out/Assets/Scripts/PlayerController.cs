@@ -12,12 +12,15 @@ public class PlayerController : MonoBehaviour
     private float horizontalInput;
     private float verticalInput;
     private float speed = 10.0f;
+    private Rigidbody rb; // Reference to the Rigidbody component
 
     private Vector2 mousePosition; // Variable to store mouse position
     public float mouseX; // Variable to store mouse X movement
 
     void Start()
     {
+        rb = GetComponent<Rigidbody>(); // Get the Rigidbody component attached to the player
+
         // Find the flashlight object in the scene by its name
         flashlight = GameObject.Find("Flashlight");
 
@@ -47,9 +50,12 @@ public class PlayerController : MonoBehaviour
         horizontalInput = Input.GetAxis("Horizontal");
 
         // Move the player based on input disregarding players rotation
-        transform.Translate(Vector3.forward * speed * Time.deltaTime * verticalInput, Space.World);
-        transform.Translate(Vector3.right * speed * Time.deltaTime * horizontalInput, Space.World);
-
+        //Move the player with rigidbody to avoid physics issues
+        rb.linearVelocity = new Vector3(
+            horizontalInput * speed,
+            rb.linearVelocity.y, // Keep the y velocity unchanged to avoid jumping
+            verticalInput * speed
+        );
         var mousePosition = Input.mousePosition; // Get the current mouse position
         var wantedPosition = Camera.main.ScreenToWorldPoint(
             new Vector3(mousePosition.x, mousePosition.y, Camera.main.transform.position.y)
