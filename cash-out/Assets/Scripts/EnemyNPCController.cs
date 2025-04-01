@@ -15,11 +15,14 @@ public class EnemyNPCController : MonoBehaviour
 
     private int currentHealth; // Current health of the enemy NPC
 
+    private FieldOfView fovController;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         currentHealth = maxHealth; // Initialize current health to max health
         gunController = gun.GetComponent<GunController>();
+        fovController = gameObject.GetComponent<FieldOfView>();
     }
 
     // Update is called once per frame
@@ -74,7 +77,14 @@ public class EnemyNPCController : MonoBehaviour
             // For example, if you have a GunController script attached to the enemy:
             if (gunController != null)
             {
-                gunController.Shoot(); // Call the shoot method from the GunController
+                if (fovController.seeSuspicous)
+                {
+                    gunController.Shoot(); // Call the shoot method from the GunController
+                }
+                else
+                {
+                    Debug.Log("Enemy NPC is not in a position to shoot (not seeing the player).");
+                }
             }
             else
             {
