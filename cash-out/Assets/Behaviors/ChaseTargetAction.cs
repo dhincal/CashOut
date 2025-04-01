@@ -32,11 +32,24 @@ public partial class ChaseTargetAction : Action
         }
 
         GameObject.transform.LookAt(Target.Value.transform);
-        GameObject.transform.position += GameObject.transform.forward * 5f * Time.deltaTime;
+        Rigidbody rb = GameObject.GetComponent<Rigidbody>();
+        rb.transform.rotation = Quaternion.LookRotation(
+            Target.Value.transform.position - GameObject.transform.position
+        ); // Ensure the agent is facing the target
+        rb.linearVelocity = GameObject.transform.rotation * Vector3.forward * 5f; // Stop any existing movement
 
-        if (Vector3.Distance(GameObject.transform.position, Target.Value.transform.position) < 0.1f)
+        if (Vector3.Distance(GameObject.transform.position, Target.Value.transform.position) < 7f)
         {
-            return Status.Success;
+            GameObject.GetComponent<EnemyNPCController>().AimToShoot(); // Call the AimToShoot method from EnemyNPCController
+        }
+
+        if (Vector3.Distance(GameObject.transform.position, Target.Value.transform.position) < 5f)
+        {
+            rb.linearVelocity = Vector3.zero; // Stop the agent when close to the target
+            // Make enemy shoot if close to the target
+            rb.transform.rotation = Quaternion.LookRotation(
+                Target.Value.transform.position - GameObject.transform.position
+            ); // Ensure the agent is facing the target
         }
 
         if (Suspicious.Value == SusEnum.NoSus)

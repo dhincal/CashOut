@@ -36,12 +36,27 @@ public class BulletMoveForward : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
+        Destroy(gameObject); // Destroy the bullet when it collides with any object
         if (collision.gameObject.CompareTag("Enemy")) // Check if the collided object has the tag "Enemy"
         {
-            Debug.Log("Collision detected with: " + collision.gameObject.name); // Log the name of the object the bullet collides with
-            Destroy(gameObject); // Destroy the bullet when it collides with any object
+            EnemyNPCController enemy = collision.gameObject.GetComponent<EnemyNPCController>(); // Get the EnemyNPCController component from the collided enemy object
+            if (enemy != null)
+            {
+                enemy.GetDamaged(); // Call the GetDamaged method on the enemy to apply damage
+            }
+            else
+            {
+                Debug.LogWarning(
+                    "EnemyNPCController component not found on the collided enemy object."
+                );
+            }
 
             Debug.Log("Hit an enemy!"); // Log that an enemy was hit
+        }
+        else if (collision.gameObject.CompareTag("Player")) // Check if the collided object has the tag "Player"
+        {
+            Debug.Log("Hit the player!"); // Log that the player was hit
+            // You can add logic here to apply damage to the player or trigger any other effects
         }
         else
         {
@@ -53,7 +68,6 @@ public class BulletMoveForward : MonoBehaviour
             ); // Instantiate the bullet impact effect at the collision point with the correct rotation
             bulletImpactEffect.Play(); // Play the bullet impact effect if it's assigned
             Debug.Log("Collision at point: " + contactPoint.point); // Log the collision point
-            Destroy(gameObject); // Destroy the bullet when it collides with any object
         }
     }
 }
