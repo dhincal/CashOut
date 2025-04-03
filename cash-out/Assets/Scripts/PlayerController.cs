@@ -17,6 +17,33 @@ public class PlayerController : MonoBehaviour
     private Vector2 mousePosition; // Variable to store mouse position
     public float mouseX; // Variable to store mouse X movement
 
+    public GameObject[] playerInventory; // Array to store the player's inventory items (if needed)
+
+    public void AddItemToInventory(GameObject item)
+    {
+        // Add the item to the player's inventory (this is a placeholder method, implement as needed)
+        if (playerInventory == null || playerInventory.Length == 0)
+        {
+            playerInventory = new GameObject[1] { item };
+        }
+        else
+        {
+            // Resize the array and add the new item (for simplicity, this example does not handle duplicates)
+            System.Array.Resize(ref playerInventory, playerInventory.Length + 1);
+            playerInventory[playerInventory.Length - 1] = item;
+        }
+        // Hide Item
+        if (item != null)
+        {
+            item.SetActive(false); // Optionally hide the item after adding it to the inventory
+            Debug.Log($"Added {item.name} to inventory.");
+        }
+        else
+        {
+            Debug.LogWarning("Attempted to add a null item to the inventory!");
+        }
+    }
+
     void Start()
     {
         rb = GetComponent<Rigidbody>(); // Get the Rigidbody component attached to the player

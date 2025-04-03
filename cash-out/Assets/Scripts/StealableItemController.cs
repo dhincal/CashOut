@@ -14,6 +14,9 @@ public class StealableItemController : MonoBehaviour
     private float holdTime = 2f; // Time in seconds the player must hold the 'E' key to steal the item
     private bool isInRadius = false;
 
+    [SerializeField]
+    private GameObject player; // Reference to the player object (optional, can be used for more complex logic)
+
     private enum ItemRairty
     {
         Common,
@@ -26,8 +29,13 @@ public class StealableItemController : MonoBehaviour
     [SerializeField]
     private ItemRairty itemRarity;
 
+    private PlayerController playerController; // Reference to the PlayerController script (if needed)
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start() { }
+    void Start()
+    {
+        playerController = player.GetComponent<PlayerController>(); // Get the PlayerController component from the player object
+    }
 
     // Update is called once per frame
     void Update()
@@ -58,7 +66,7 @@ public class StealableItemController : MonoBehaviour
             }
             if (timer >= holdTime) // If the hold time is reached, proceed to steal the item
             {
-                Destroy(gameObject); // Exit the loop to proceed with stealing the item
+                playerController.AddItemToInventory(gameObject); // Add the item to the player's inventory (if implemented in PlayerController)
             }
 
             yield return null; // Wait for the next frame
@@ -68,29 +76,8 @@ public class StealableItemController : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         // Handle the logic when another object collides with this item, e.g., stealing it
-        if (other.CompareTag("Player"))
-        {
-            isInRadius = true; // Set the flag to true when the player enters the trigger area
 
-            // Make player hold the e key for 2 seconds to "steal" the item
-
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                Debug.Log($"Player is attempting to steal {itemName}");
-                float timer = 0f;
-                while (timer < holdTime)
-                {
-                    timer += Time.deltaTime;
-                    if (!Input.GetKeyDown(KeyCode.E)) // Break the loop if the key is released
-                    {
-                        timer = 0f; // Reset timer if the key is released
-                        break;
-                    }
-                }
-
-                Destroy(gameObject); // Destroy the item after it has been "stolen"
-            }
-        }
+        isInRadius = true; // Set the flag to true when the player enters the trigger area
     }
 
     void OnTriggerExit(Collider other)
