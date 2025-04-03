@@ -63,9 +63,6 @@ public class StealableItemController : MonoBehaviour
 
             yield return null; // Wait for the next frame
         }
-
-        Debug.Log($"Stealing {itemName} successful!");
-        Destroy(gameObject); // Destroy the item after it has been "stolen"
     }
 
     void OnTriggerEnter(Collider other)
