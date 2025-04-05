@@ -8,6 +8,7 @@ TagManager:
   - Undefined
   - Bullet
   - Weapon
+  - Bag
   layers:
   - Default
   - TransparentFX
