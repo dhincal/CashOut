@@ -18,12 +18,19 @@ public class BagController : MonoBehaviour
     [SerializeField]
     private Enum weightOfBag; // Enum to define the weight of the bag, can be used for inventory management (optional)
 
+    [SerializeField]
+    private float throwPower = 0f; // Power applied when throwing the bag (optional, can be adjusted)
+
+    [SerializeField]
     public enum WeightOfBag
     {
         Light,
         Medium,
         Heavy,
     }
+
+    [SerializeField]
+    private WeightOfBag bagWeight; // The weight of the bag, used to determine its mass for physics calculations
 
     private PlayerController playerController; // Reference to the PlayerController script (if needed)
     private bool isCarrying = false; // Track if the player is currently carrying the bag
@@ -37,6 +44,19 @@ public class BagController : MonoBehaviour
         playerController = player.GetComponent<PlayerController>(); // Get the PlayerController component from the player object
         rb = gameObject.GetComponent<Rigidbody>();
         itemCollider = gameObject.GetComponent<Collider>();
+
+        if (WeightOfBag.Light.ToString() == bagWeight.ToString())
+        {
+            rb.mass = 10; // Example power for light bags
+        }
+        else if (WeightOfBag.Medium.ToString() == bagWeight.ToString())
+        {
+            rb.mass = 20; // Example power for medium bags
+        }
+        else if (WeightOfBag.Heavy.ToString() == bagWeight.ToString())
+        {
+            rb.mass = 30; // Example power for heavy bags
+        }
     }
 
     // Update is called once per frame
@@ -64,7 +84,7 @@ public class BagController : MonoBehaviour
             if (rb != null)
             {
                 rb.isKinematic = false; // Make sure the Rigidbody is not kinematic to apply physics
-                rb.AddForce(player.transform.forward * 10f, ForceMode.Impulse); // Apply a forward force to simulate throwing
+                rb.AddForce(player.transform.forward * throwPower, ForceMode.Impulse); // Apply a forward force to simulate throwing
             }
             itemCollider.enabled = true; // Re-enable the collider for future interactions
             isCarrying = false; // Mark the player as not carrying the bag anymore
@@ -105,16 +125,7 @@ public class BagController : MonoBehaviour
         itemCollider.enabled = false; // Optionally disable the collider to prevent further interactions
         rb.isKinematic = true; // Make the Rigidbody kinematic to prevent physics from affecting it while being carried
 
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            // Allow player to drop the bag by pressing 'E' again
-            Debug.Log($"Player has dropped {itemName}.");
-            gameObject.transform.SetParent(null); // Remove the parent to drop the bag
-            gameObject.transform.position = player.transform.position + new Vector3(0, 0, 2); // Drop the bag in front of the player (optional)
-            gameObject.GetComponent<Collider>().enabled = true; // Re-enable the collider for future interactions
-            isCarrying = false; // Mark the player as not carrying the bag anymore
-            yield break; // Exit the coroutine
-        }
+        yield break;
     }
 
     void OnTriggerEnter(Collider other)
