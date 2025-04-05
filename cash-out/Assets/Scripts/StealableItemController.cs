@@ -17,6 +17,11 @@ public class StealableItemController : MonoBehaviour
     [SerializeField]
     private GameObject player; // Reference to the player object (optional, can be used for more complex logic)
 
+    [SerializeField]
+    private GameObject bag;
+
+    private BagController bagController;
+
     private enum ItemRairty
     {
         Common,
@@ -35,6 +40,7 @@ public class StealableItemController : MonoBehaviour
     void Start()
     {
         playerController = player.GetComponent<PlayerController>(); // Get the PlayerController component from the player object
+        bagController = bag.GetComponent<BagController>(); // Get the BagController component from the bag object
     }
 
     // Update is called once per frame
@@ -66,9 +72,15 @@ public class StealableItemController : MonoBehaviour
             }
             if (timer >= holdTime) // If the hold time is reached, proceed to steal the item
             {
-                playerController.AddItemToInventory(gameObject); // Add the item to the player's inventory (if implemented in PlayerController)
+                //playerController.AddItemToInventory(gameObject); // Add the item to the player's inventory (if implemented in PlayerController)
+                Instantiate(
+                    bag,
+                    gameObject.transform.position + gameObject.transform.forward,
+                    Quaternion.identity
+                ); // Optionally spawn a bag or some other item upon stealing
+                bagController.firstPick = true;
+                gameObject.SetActive(false); // Optionally disable the item after stealing, or destroy it
             }
-
             yield return null; // Wait for the next frame
         }
     }

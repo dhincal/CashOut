@@ -11,8 +11,6 @@ public class BagController : MonoBehaviour
     [SerializeField]
     private float holdTime = 2f; // Time in seconds the player must hold the 'E' key to steal the item
     private bool isInRadius = false;
-
-    [SerializeField]
     private GameObject player; // Reference to the player object (optional, can be used for more complex logic)
 
     [SerializeField]
@@ -38,9 +36,12 @@ public class BagController : MonoBehaviour
     private Rigidbody rb; // Reference to the Rigidbody component for applying physics (if needed)
     private Collider itemCollider; // Reference to the Collider component for enabling/disabling it during carry
 
+    public bool firstPick;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player"); // Find the player object by tag (ensure your player has the "Player" tag)
         playerController = player.GetComponent<PlayerController>(); // Get the PlayerController component from the player object
         rb = gameObject.GetComponent<Rigidbody>();
         itemCollider = gameObject.GetComponent<Collider>();
@@ -57,6 +58,12 @@ public class BagController : MonoBehaviour
         {
             rb.mass = 30; // Example power for heavy bags
         }
+
+        if (firstPick)
+        {
+            firstPick = false; // Reset first pick to false after this execution, so it doesn't run again
+            StartCoroutine(TakeBag()); // Automatically take the bag if it's the first pick up, this can be used for testing purposes
+        }
     }
 
     // Update is called once per frame
@@ -67,7 +74,7 @@ public class BagController : MonoBehaviour
             // Check if the player is holding the 'E' key to attempt stealing the item
             if (Input.GetKeyDown(KeyCode.E) && !isCarrying)
             {
-                StartCoroutine(TakeBag()); // Start the coroutine to handle stealing the item
+                StartCoroutine(CheckTimer()); // Start the coroutine to handle stealing the item
             }
         }
 
@@ -91,7 +98,7 @@ public class BagController : MonoBehaviour
         }
     }
 
-    IEnumerator TakeBag()
+    IEnumerator CheckTimer()
     {
         float timer = 0f;
 
@@ -104,18 +111,27 @@ public class BagController : MonoBehaviour
 
         if (timer >= holdTime && isInRadius)
         {
-            // Logic to add the item to the player's bag
-
-            Debug.Log($"Player has successfully taken {itemName}!");
-            isCarrying = true; // Mark the player as carrying the bag
-            StartCoroutine(CarryBag()); // Start the coroutine to handle carrying the bag
-            yield break;
+            StartCoroutine(CarryBag()); // Call the TakeBag method if the hold time is reached and player is still in radius
+            yield break; // Exit the coroutine after taking the bag
         }
+        yield return null;
+    }
+
+    public IEnumerator TakeBag()
+    {
+        // Logic to add the item to the player's bag
+
+        Debug.Log($"Player has successfully taken {itemName}!");
+        isCarrying = true; // Mark the player as carrying the bag
+        StartCoroutine(CarryBag()); // Start the coroutine to handle carrying the bag
+        yield break;
     }
 
     IEnumerator CarryBag()
     {
+        isCarrying = true; // Ensure the player is carrying the bag
         // Logic for carrying the bag can be implemented here
+
         Debug.Log($"Player is now carrying {itemName}.");
 
         gameObject.transform.SetParent(player.transform); // Make the bag a child of the player to follow them around
