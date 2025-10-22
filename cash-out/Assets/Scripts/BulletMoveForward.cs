@@ -9,6 +9,8 @@ public class BulletMoveForward : MonoBehaviour
 
     private Rigidbody rb; // Reference to the Rigidbody component
 
+    private Transform bulletTransform;
+
     [SerializeField]
     private ParticleSystem bulletImpactEffect; // Reference to the bullet impact effect (optional)
 
@@ -19,10 +21,11 @@ public class BulletMoveForward : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>(); // Get the Rigidbody component attached to the bullet
+        bulletTransform = GetComponent<Transform>();
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         // transform.Translate(Vector3.forward * Time.deltaTime * speed); // Move the bullet forward at a speed of 10 units per second
 
@@ -36,7 +39,6 @@ public class BulletMoveForward : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        Destroy(gameObject); // Destroy the bullet when it collides with any object
         if (collision.gameObject.CompareTag("Enemy")) // Check if the collided object has the tag "Enemy"
         {
             EnemyNPCController enemy = collision.gameObject.GetComponent<EnemyNPCController>(); // Get the EnemyNPCController component from the collided enemy object
@@ -56,18 +58,25 @@ public class BulletMoveForward : MonoBehaviour
         else if (collision.gameObject.CompareTag("Player")) // Check if the collided object has the tag "Player"
         {
             Debug.Log("Hit the player!"); // Log that the player was hit
-            // You can add logic here to apply damage to the player or trigger any other effects
+            return; // Exit the method to prevent further processing
         }
         else
         {
-            ContactPoint contactPoint = collision.contacts[0]; // Access the first contact point
+            ContactPoint contactPoint = collision.contacts[0]; // Access the second contact point
             Instantiate(
                 bulletImpactEffect,
                 contactPoint.point,
-                Quaternion.LookRotation(shooter.transform.position - contactPoint.point) // Calculate the rotation based on the direction from the impact point to the shooter);
+                Quaternion.LookRotation(shooter.transform.position - contactPoint.point) // Calculate the rotation based on the direction from the impact point to the shooter
             ); // Instantiate the bullet impact effect at the collision point with the correct rotation
             bulletImpactEffect.Play(); // Play the bullet impact effect if it's assigned
             Debug.Log("Collision at point: " + contactPoint.point); // Log the collision point
         }
+
+        speed = 0f; // Stop the bullet's movement
+        Destroy(gameObject, 0.05f); // Destroy the bullet after 1 second to allow the impact effect to play
+
+        //gameObject.SetActive(false); // Deactivate the bullet instead of destroying it
+
+        // When too close to the wall, bullet is invincible
     }
 }
