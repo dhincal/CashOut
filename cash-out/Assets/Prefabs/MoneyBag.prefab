@@ -146,9 +146,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: CashBag
   holdTime: 2
-  player: {fileID: 7055719673664112781, guid: e5deff250db8b4a43b0a677ea6807380, type: 3}
   throwPower: 150
   bagWeight: 2
+  firstPick: 1
 --- !u!54 &6291077644540526558
 Rigidbody:
   m_ObjectHideFlags: 0

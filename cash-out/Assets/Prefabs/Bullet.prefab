@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ef1ef7a20451bd4b8d4c31e80030b33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 75
+  speed: 100
   bulletImpactEffect: {fileID: 3272360076218935210, guid: fbb5b1d0ad1bf37478ced11eae4c606e, type: 3}
   shooter: {fileID: 0}
 --- !u!54 &5680254237332630072

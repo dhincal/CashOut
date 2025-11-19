@@ -84,9 +84,10 @@ public class BagController : MonoBehaviour
             Debug.Log($"Player has dropped {itemName}.");
             StopCoroutine(CarryBag()); // Stop the carry coroutine if it's running
             gameObject.transform.SetParent(null); // Remove the parent to drop the bag
-            gameObject.transform.position = player.transform.position + new Vector3(0, 0, 2); // Drop the bag in front of the player (optional)
             // Apply force for throwing the bag
-
+            float throwPower = 150f;
+            gameObject.transform.SetParent(null); // Remove the parent to drop the bag
+            gameObject.transform.position = player.transform.position + new Vector3(0, 2, 0); // Drop the bag in front of the player (optional)
 
             if (rb != null)
             {
